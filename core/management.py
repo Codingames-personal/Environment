@@ -12,9 +12,9 @@ def execute_option(option_type, args):
     if option_type in ('-f', '--force'):
         options.add(args)
 
-def execute_command(option_command):
+def execute_command(option_command, **kargs):
     if option_command in ('merge'):
-        pass
+        commands.merge.execute()
 
 def is_command_or_option(arg):
     """Return True if arg is a command or an option"""
@@ -39,7 +39,7 @@ def detailed_args(argv : list[str]) -> dict:
             args["options"].append([option_type, option_arg_list])
 
         if arg in commands.command_list:
-            args["commands"].append(arg)        
+            args["commands"].append([arg])        
         try :
             arg = next(iter_argv)
         except StopIteration:
