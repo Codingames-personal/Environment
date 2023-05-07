@@ -11,7 +11,7 @@ def execute_option(option_type, args):
 
     if option_type in ('-f', '--force'):
         options.add(args)
-        
+
 def execute_command(option_command):
     if option_command in ('merge'):
         pass
@@ -48,7 +48,7 @@ def detailed_args(argv : list[str]) -> dict:
 
 
 
-def execute_from_management(argv : list[str]):
+def execute_from_command_line(argv : list[str]):
     
     argv_detailed = detailed_args(argv)
     for option in argv_detailed["options"]:
