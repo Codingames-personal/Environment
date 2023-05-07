@@ -3,7 +3,7 @@
 CodinGame platform require to have a script with all of the code on it of course this is not really helpfull for coding, testing and debugging.
 That why I am trying to create this environment.
 
-## Notice
+## Structure
 
 When a repertory is made for CodinGame, it will have to clone this one firstly.
 
@@ -23,3 +23,16 @@ It will have the following command :
 ### cgignore
 
 This file contains the script that you do not want in merge 
+
+## How does it works
+
+You have to put the order of your script at the top of its with the keyword "order :" :
+
+```py
+# author : Blopausore ,... order : 1
+```
+
+Then you can merge it with :
+```bash
+python manage.py merge
+```
