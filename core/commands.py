@@ -39,7 +39,7 @@ class merge:
 
 
     def merge_scripts(scripts):
-        main_path = os.path.join(main_folder_path, "main.py"):
+        main_path = os.path.join(main_folder_path, "main.py")
         for script_path in scripts:
             merge.copy_files(script_path, main_path)
 
