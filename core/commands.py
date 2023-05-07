@@ -1,7 +1,10 @@
 
 command_list = ['merge']
-class Merge:
 
+def execute(arg):
+    pass
+
+class Merge:
     folders = ["src"]
 
         
