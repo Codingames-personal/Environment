@@ -12,6 +12,19 @@ folder_path_list = [src_path]
 
 class merge:
 
+    def is_ignore(file_name : str) -> bool:
+
+        with open(os.path.join(main_folder_path, "cgignore"), 'r') as cgignore:
+            for ignore_file in cgignore.readlines():
+                if ignore_file == file_name: #If the script is directly in cgignore
+                    return True
+                
+                if  os.path.dirname(file_name) == ignore_file: # If the script is in a folder named in cgignore
+                    return True
+
+            return False
+
+
     def update_folder_path_list() -> None:
         with open(os.path.join(main_folder_path, "cgadd"), 'r') as cgadd:
             for folder_name in cgadd.readlines():
@@ -20,13 +33,13 @@ class merge:
                     )
         
         print("take into account cgfolder")
-        
+
 
     def script_in_order() -> list:
         scripts = []
         for folder_path in folder_path_list:
             for file_path in os.listdir(folder_path):
-                if file_path[-3:] == ".py":
+                if file_path[-3:] == ".py" and not merge.is_ignore(file_path):
                     with open(os.path.join(src_path, file_path), "r") as script:
                         first_line = script.readline()
                         number_index = first_line.index("order :") + len("order :")
