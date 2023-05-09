@@ -24,6 +24,10 @@ It will have the following command :
 
 This file contains the script that you do not want in merge 
 
+### cgfolder
+
+This file contains the name of the folder that you want to merge
+
 ## How does it works
 
 You have to put the order of your script at the top of its with the keyword "order :" :

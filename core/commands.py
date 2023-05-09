@@ -26,13 +26,12 @@ class merge:
 
 
     def update_folder_path_list() -> None:
-        with open(os.path.join(main_folder_path, "cgadd"), 'r') as cgadd:
-            for folder_name in cgadd.readlines():
+        with open(os.path.join(main_folder_path, "cgfolder"), 'r') as cgfolder:
+            for folder_name in cgfolder.readlines():
                 folder_path_list.append(
                     os.path.join(main_folder_path, folder_name)
                     )
         
-        print("take into account cgfolder")
 
 
     def script_in_order() -> list:
@@ -44,7 +43,6 @@ class merge:
                         first_line = script.readline()
                         number_index = first_line.index("order :") + len("order :")
                         number = ""
-                        while not first_line[number_index].isdigit(): number_index+=1
                         while number_index < len(first_line) and first_line[number_index].isdigit():
                             number+=first_line[number_index]
                             number_index +=1
@@ -53,7 +51,6 @@ class merge:
                         
                     scripts.append({'file_path' :os.path.join(src_path, file_path), 'order' : number})
         
-        print("Order the scripts : ok", file=sys.stderr)
         
         return list(map(
             lambda script : script['file_path'],
@@ -85,10 +82,15 @@ class merge:
 
     def execute() -> None:
         print("Starting merge", file=sys.stderr)
+
         merge.update_folder_path_list()
-        merge.merge_scripts(
-            merge.script_in_order()
-        )
+        print("take into account cgfolder", file=sys.stderr)
+
+        scripts_in_order = merge.script_in_order()
+        print("Order the scripts : ok", file=sys.stderr)
+
+
+        merge.merge_scripts(scripts_in_order)
         print("Scripts have been merged", file=sys.stderr)
 
 
