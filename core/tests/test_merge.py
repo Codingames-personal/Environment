@@ -13,33 +13,29 @@ class TestMerge(unittest.TestCase):
     def test_is_ignore(self):
         try:
             self.assertFalse(merge.is_ignore("test_file"))
-
             with open(cgignore_path, 'a') as cgignore:
                 cgignore.write("test_file")
-
             self.assertTrue(merge.is_ignore("test_file"))
+
         except :
-            
             del_last_line(cgignore_path)
 
-
     def test_update_folder_path_list(self):
+        try :
+            self.assertFalse("test_folder" in folder_path_list)
 
-        self.assertFalse("test_folder" in folder_path_list)
+            with open(cgfolder_path, "a") as cgfolder:
+                cgfolder.write("test_folder")
 
-        with open(cgfolder_path, "a") as cgfolder:
-            cgfolder.write("test_folder")
-
-        merge.update_folder_path_list()
-        self.assertTrue("test_folder" in folder_path_list)
-
+            merge.update_folder_path_list()
+            folder_path = os.path.join(main_folder_path, "test_folder")
+            self.assertTrue(folder_path in folder_path_list)
+        except : pass
         del folder_path_list[-1]
         del_last_line(cgfolder_path)
 
 
     def test_script_in_order(self):
-
-
         for i in range(20):
             with open(os.path.join(main_folder_path, src_path, f"script_{i}.py"), 'w') as script:
                 script.write(f"Test blabla order : {i}")

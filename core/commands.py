@@ -28,11 +28,9 @@ class merge:
     def update_folder_path_list() -> None:
         with open(os.path.join(main_folder_path, "cgfolder"), 'r') as cgfolder:
             for folder_name in cgfolder.readlines():
-                folder_path_list.append(
-                    os.path.join(main_folder_path, folder_name)
-                    )
-        
-
+                folder_path = os.path.join(main_folder_path, folder_name)
+                if not folder_path in folder_path_list:
+                    folder_path_list.append(folder_path)    
 
     def script_in_order() -> list:
         scripts = []
@@ -43,6 +41,7 @@ class merge:
                         first_line = script.readline()
                         number_index = first_line.index("order :") + len("order :")
                         number = ""
+                        while not first_line[number_index].isdigit(): number_index+=1
                         while number_index < len(first_line) and first_line[number_index].isdigit():
                             number+=first_line[number_index]
                             number_index +=1
