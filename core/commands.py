@@ -93,7 +93,13 @@ class merge:
         print("Scripts have been merged", file=sys.stderr)
 
 
-    
+    # OPTIONS
+
+    def scheduling(self):
+        scripts_dict = dict()
+        for folder_path in folder_path_list:
+            for file_path in os.listdir(folder_path):
+                
 
         
 # %%
