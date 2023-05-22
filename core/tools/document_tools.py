@@ -23,3 +23,39 @@ def is_empty(file_path):
         with open(file_path, 'r') as file:
             return list(file.readlines()) == []
     
+def find_import(file_path):
+    """
+    Find all the file that have been imported on a script
+    """
+    
+    
+    with open(file_path, 'r') as file:
+        import_list = list()
+        state = 0
+        for line in file.readlines():
+            split_line = line.split(" ")
+            if not split_line: continue
+            if state == 0:
+                if split_line[0] in ("import", "from"):
+                    import_list.append(split_line[1] if not '\n' in split_line[1] else split_line[1][:-1])
+                    state = 1
+            if state == 1:
+                if not split_line[0] in ("import", "from", '"""') or not line[0] == "#":
+                    break
+
+    return import_list
+
+
+def python_to_sys_path(python_path):
+    sys_path = ""
+    print(python_path.split("."))
+    for file_name in python_path.split("."):
+        print(file_name, sys_path)
+        if file_name == "":
+            sys_path += f"."
+        else:
+            sys_path += f"/{file_name}"
+    sys_path += ".py"
+    if not os.path.exists(sys_path):
+        return "not exist " + sys_path
+    return sys_path
