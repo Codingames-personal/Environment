@@ -2,7 +2,7 @@
 #%%
 import os
 import sys
-
+from tools.document_tools import find_import, python_to_sys_path
 command_list = ['merge']
 
 main_folder_path = __file__[:-16]
@@ -99,7 +99,11 @@ class merge:
         scripts_dict = dict()
         for folder_path in folder_path_list:
             for file_path in os.listdir(folder_path):
+                import_path_list = python_to_sys_path(
+                    find_import(file_path)
+                )
                 
 
         
 # %%
+

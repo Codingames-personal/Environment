@@ -45,17 +45,31 @@ def find_import(file_path):
 
     return import_list
 
+##
+#%%
+def insert_text(text, insert, index):
+    return text[:index] + insert + text[index:]
 
 def python_to_sys_path(python_path):
     sys_path = ""
-    print(python_path.split("."))
-    for file_name in python_path.split("."):
-        print(file_name, sys_path)
-        if file_name == "":
-            sys_path += f"."
+    double_point = False
+    for character in python_path:
+        if character == ".":
+            if double_point:
+                sys_path = sys_path[:-1] + ".." + sys_path[-1]
+                double_point = False
+            else:
+                sys_path += "/"
+                double_point = True
         else:
-            sys_path += f"/{file_name}"
+            sys_path += character
+            double_point = False
     sys_path += ".py"
     if not os.path.exists(sys_path):
         return "not exist " + sys_path
     return sys_path
+
+
+python_to_sys_path("..src.blabla")
+
+#%%
